@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import example.sam.test01.adapter.FreeAppItem
 import example.sam.test01.api.AppApi
+import example.sam.test01.api.EntryBean
 import example.sam.test01.config.RetrofitManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -28,7 +29,7 @@ class MainViewModel : ViewModel(){
     //加载所有数据
     @SuppressLint("CheckResult")
     fun loadAllData(){
-        appApi.getLoadAllFreeApi().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe (
+        appApi.getLoadAllFreeInfoApi().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe (
             {
                 freeAppItemLiveData.value = it.feed?.entry?:ArrayList()
             },{
@@ -38,5 +39,19 @@ class MainViewModel : ViewModel(){
     }
 
 
+    //加载免费的好相关信息
+    @SuppressLint("CheckResult")
+    fun findFreeAppOtherInfo(item:FreeAppItem){
+        if(item is EntryBean){
+            val id =
+            appApi.getLoadFreeOtherInfoApi(id = "${item.id}").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe (
+                {
+
+                },{
+                    Log.e("error_response",""+it)
+                }
+            )
+        }
+    }
 
 }

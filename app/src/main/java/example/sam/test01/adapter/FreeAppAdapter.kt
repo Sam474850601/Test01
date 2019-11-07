@@ -1,19 +1,26 @@
 package example.sam.test01.adapter
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import example.sam.test01.R
+import example.sam.test01.viewmodel.MainViewModel
 
 //所有免费app列表adapter
-class FreeAppAdapter : BaseQuickAdapter<FreeAppItem, BaseViewHolder>(R.layout.app_item_free_apps) {
+class FreeAppAdapter : BaseQuickAdapter<FreeAppItem, FreeAppLifeViewHolder>(R.layout.app_item_free_apps) {
 
-    override fun convert(helper: BaseViewHolder?, item: FreeAppItem?) {
+    override fun convert(helper: FreeAppLifeViewHolder?, item: FreeAppItem?) {
+        helper?.makeLifeOnCreate()
         //评论数目
         val commentTotalTv = helper?.getView<TextView>(R.id.commentTotalTv)
         //app排名位置
@@ -44,8 +51,31 @@ class FreeAppAdapter : BaseQuickAdapter<FreeAppItem, BaseViewHolder>(R.layout.ap
         }
 
         likesRb?.rating = item?.freeAppAdapterLikes()?.toFloat()?:0.0f
+
+       val mainViewModel = MainViewModel()
+
+
     }
 
+
+
+    override fun onViewDetachedFromWindow(holder: FreeAppLifeViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        holder.makeLifeOnDestroy()
+    }
+
+}
+
+//赋予免费app列表具有可见屏幕生命周期
+class FreeAppLifeViewHolder(val view: View) : BaseViewHolder(view), LifecycleOwner {
+    val life =   LifecycleRegistry(this)
+    override fun getLifecycle(): Lifecycle = life
+    fun makeLifeOnCreate(){
+        life.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    }
+    fun makeLifeOnDestroy(){
+        life.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    }
 }
 
 
@@ -67,3 +97,4 @@ interface FreeAppItem {
     //app 评论个数
     fun freeAppAdapterComments(): String?
 }
+

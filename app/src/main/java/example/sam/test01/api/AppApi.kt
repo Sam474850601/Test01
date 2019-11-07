@@ -5,14 +5,17 @@ import example.sam.test01.adapter.FreeAppItem
 import io.reactivex.Observable
 import io.reactivex.Observer
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 //app 的后台数据api
 interface AppApi{
 
     //获取所有列表
     @GET("rss/topfreeapplications/limit=100/json")
-    fun getLoadAllFreeApi():Observable<LoadAllFreeApiResponseBean>
+    fun getLoadAllFreeInfoApi():Observable<LoadAllFreeApiResponseBean>
 
+    @GET("lookup")
+    fun getLoadFreeOtherInfoApi(@Query("id") id:String):Observable<LoadFreeOtherInfoResponseBean>
 
 }
 
@@ -43,8 +46,6 @@ class EntryBean: FreeAppItem{
     var im_name:AttributeBean? = null
     @SerializedName("im:image")
     var im_image:List<AttributeBean>? = null
-
-    var summary:AttributeBean? = null
 
 
     @SerializedName("im:contentType")
@@ -79,6 +80,22 @@ class  AttributeChild{
 }
 
 open class Result{
-
     open var errorMessage:String? = null
+}
+
+
+
+//加载免费app其他信息
+class LoadFreeOtherInfoResponseBean : Result(){
+    var resultCount:Int? = 0
+    var results:LoadFreeOtherInfoResponseResult? = null
+}
+
+class LoadFreeOtherInfoResponseResult{
+    //评分
+    var averageUserRating:Int? = 0;
+    //评论数目
+    var userRatingCount:Int? = 0;
+
+
 }

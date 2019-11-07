@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:paddingTop="12dp"
+                                                   android:layout_height="wrap_content">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/item_title"
+            android:id="@+id/appNameTv"
+            tools:text="香港01-即使新闻"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintTop_toTopOf="@+id/appIconIv" app:layout_constraintStart_toEndOf="@+id/appIconIv"
+            android:layout_marginLeft="15dp" android:layout_marginStart="15dp"/>
+
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/item_desc_big"
+            tools:text="1"
+
+            android:id="@+id/bankPositionTv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="12dp" android:layout_marginStart="12dp"
+            app:layout_constraintTop_toTopOf="@+id/appIconIv"
+            app:layout_constraintBottom_toBottomOf="@+id/appIconIv"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/item_desc_small"
+            android:id="@+id/commentTotalTv"
+            tools:text="(17)"
+            app:layout_constraintStart_toEndOf="@+id/likesRb"
+            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@+id/likesRb" app:layout_constraintBottom_toBottomOf="@+id/likesRb"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/item_desc"
+            android:id="@+id/descTv"
+            tools:text="新闻"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintStart_toStartOf="@+id/appNameTv"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/appIconIv" app:layout_constraintBottom_toBottomOf="@+id/appIconIv"/>
+    <ImageView android:layout_width="58dp" android:layout_height="58dp"
+               android:id="@+id/appIconIv"
+               android:src="@drawable/ic_launcher_background"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintStart_toEndOf="@+id/bankPositionTv" android:layout_marginLeft="12dp"
+               android:layout_marginStart="12dp"/>
+    <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/likesRb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            style="?android:attr/ratingBarStyleSmall"
+            android:rating="3"
+            android:maxWidth="15dp"
+            android:maxHeight="15dp"
+            android:stepSize="1.0"
+            android:theme="@style/likesRb"
+            app:layout_constraintBottom_toBottomOf="@+id/appIconIv"
+            app:layout_constraintStart_toStartOf="@+id/descTv"/>
+
+
+    <View android:layout_width="wrap_content"
+          android:layout_height="0.5dp"
+          android:background="#e0e0e0"
+          app:layout_constraintTop_toBottomOf="@+id/appIconIv"
+          android:layout_marginTop="12dp"
+          app:layout_constraintStart_toEndOf="@+id/bankPositionTv" android:layout_marginLeft="12dp"
+          android:layout_marginStart="12dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,65 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+
+
+    compileSdkVersion rootProject.ext.defaultConfig.compileSdkVersion
+    buildToolsVersion rootProject.ext.defaultConfig.buildToolsVersion
+
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.defaultConfig.minSdkVersion
+        targetSdkVersion rootProject.ext.defaultConfig.targetSdkVersion
+        applicationId "example.sam.test01"
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation rootProject.ext.androidlib.androidx_appcompat
+    implementation rootProject.ext.androidlib.material
+    implementation rootProject.ext.androidlib.androidx_constraintlayout
+    implementation rootProject.ext.androidlib.androidx_appcompat
+    implementation rootProject.ext.androidlib.kotlin_stdlib_jdk7
+    implementation rootProject.ext.androidlib.lifecycle_extensions
+    implementation rootProject.ext.androidlib.lifecycle_viewmodel
+    implementation rootProject.ext.androidlib.lifecycle_livedata
+    implementation rootProject.ext.androidlib.lifecycle_runtime
+    annotationProcessor rootProject.ext.androidlib.lifecycle_compiler
+
+    implementation rootProject.ext.thirdparty.retrofit_gson
+    implementation rootProject.ext.thirdparty.retrofit
+
+    implementation rootProject.ext.thirdparty.retrofit2_adapter
+
+
+    implementation rootProject.ext.thirdparty.okhttp
+    implementation rootProject.ext.thirdparty.okhttp_interceptor
+
+    implementation rootProject.ext.thirdparty.adapter
+
+
+
+    implementation rootProject.ext.thirdparty.rxjava
+    implementation rootProject.ext.thirdparty.rxandroid
+    implementation rootProject.ext.thirdparty.glide
+    annotationProcessor rootProject.ext.thirdparty.glide_compiler
+
+
+}
